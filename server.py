@@ -10,11 +10,20 @@ app = Flask(__name__)
 def get_student():
     """Show information about a student."""
 
-    github = 'jhacks'
+    github = request.args.get('github')
 
     first, last, github = hackbright.get_student_by_github(github)
 
-    return '{github} is the GitHub account for {first} {last}'
+    return render_template('student_info.html',
+                           first_name=first,
+                           last_name=last,
+                           github_user=github)
+
+
+@app.route('/search')
+def search_students():
+    
+    return render_template('student_search.html')
 
 
 if __name__ == '__main__':
